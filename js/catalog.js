@@ -31,15 +31,16 @@ function handleSubmit(event) {
   addSelectedItemToCart();
   cart.saveToLocalStorage();
   updateCounter();
+  getItems();
   updateCartPreview();
-
+  document.getElementById('catalog').reset();
 }
 
 // DONE: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // DONE: suss out the item picked from the select list
   let itemPicked = document.getElementById('items').value;
-  
+
   // DONE: get the quantity
   let quantityPicked = document.getElementById('quantity').value;
 
@@ -47,14 +48,31 @@ function addSelectedItemToCart() {
   cart.addItem(itemPicked, quantityPicked);
 }
 
-// TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
-
-// TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
-function updateCartPreview() {
-  // TODO: Get the item and quantity from the form
-  // TODO: Add a new element to the cartContents div with that information
+// DONE: Update the cart count in the header nav with the number of items in the Cart
+function updateCounter() {
+  document.getElementById('itemCount').textContent = `${cart.items.length} items(s)`
 }
+
+// DONE: As you add items into the cart, show them (item & quantity) in the cart preview div
+function updateCartPreview() {
+  // DONE: Get the item and quantity from the form
+  // DONE: Add a new element to the cartContents div with that information
+  let preview = document.getElementById('cartContents');
+  let nameValue = document.getElementById('items').value;
+  let quantityValue = document.getElementById('quantity').value;
+  let p = document.createElement('p');
+  preview.appendChild(p);
+  p.textContent = `${nameValue} ${quantityValue}`;
+}
+
+
+
+function getItems() {
+  let potentialNames = JSON.parse(localStorage.getItem('productKey'));
+  let potentialTotals = JSON.parse(localStorage.getItem('productKeyTwo'));
+
+}
+
 
 // Set up the "submit" event listener on the form.
 // This is the trigger for the app. When a user "submits" the form, it will
